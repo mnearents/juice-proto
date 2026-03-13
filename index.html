@@ -1338,6 +1338,27 @@
       </div>
     </div>
 
+    <!-- Order fulfillment -->
+    <div class="card">
+      <div class="card-header">Order fulfillment</div>
+      <div class="card-body">
+        <div class="check-row">
+          <input type="checkbox" id="auto-fulfill" checked>
+          <div>
+            <label for="auto-fulfill" class="check-label">Automatically fulfill orders</label>
+            <div class="check-desc">When enabled, all subscription orders (both new subscriptions and renewals) will be automatically marked as fulfilled.</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="section-title" style="margin-bottom:6px;">Fulfillment delay</div>
+        <div class="section-desc" style="margin-bottom:12px;">The number of minutes to wait before fulfilling an order. We recommend setting this to at least 1 minute to allow other apps — such as shipping label generators or order taggers — to do their job. In some cases, 10 minutes or more is needed.</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <input type="number" value="1" min="0" style="width:72px;">
+          <span style="font-size:13px; color:#6d7175;">minutes</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Dunning -->
     <div class="card">
       <div class="card-header">Dunning schedule</div>
@@ -1415,32 +1436,6 @@
             <option>Medium or higher</option>
             <option>High only</option>
           </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Revoke access for refunded orders -->
-    <div class="card">
-      <div class="card-header">Revoke access for refunded orders</div>
-      <div class="card-body">
-        <div class="check-row" style="margin-bottom:0;">
-          <input type="checkbox" id="revoke-refund" checked>
-          <div>
-            <label for="revoke-refund" class="check-label">Revoke access after a refund</label>
-            <div class="check-desc">After refunding an order, customers won't be able to access the content.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Fulfillment delay -->
-    <div class="card">
-      <div class="card-header">Fulfillment delay</div>
-      <div class="card-body">
-        <div class="section-desc" style="margin-bottom:12px;">The number of minutes to wait before fulfilling an order. We recommend setting this to at least 1 minute to allow other apps — such as shipping label generators or order taggers — to do their job. In some cases, 10 minutes or more is needed.</div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <input type="number" value="1" min="0" style="width:72px;">
-          <span style="font-size:13px; color:#6d7175;">minutes</span>
         </div>
       </div>
     </div>
@@ -1917,6 +1912,13 @@
       <button id="drip-detail-btn-timebased" onclick="switchDripDetailTab('timebased')" style="padding:10px 16px; font-size:13px; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; color:#6d7175; margin-bottom:-1px;">Time-based</button>
     </div>
 
+    <div style="padding:16px 28px 0;">
+      <div style="border:2px dashed #c9a227; border-radius:6px; padding:8px 12px; background:#fffdf0;">
+        <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype note</div>
+        <div style="font-size:12px; color:#6d7175;">Empty state will talk about what these programs are and have a CTA to enable them and start creating drips, like library access.</div>
+      </div>
+    </div>
+
     <!-- Sequential tab -->
     <div id="drip-detail-sequential" style="padding:20px 28px; max-width:900px;">
 
@@ -1933,18 +1935,20 @@
           </div>
           <hr class="divider">
           <div class="section-title" style="margin-bottom:6px;">Delivery schedule</div>
-          <div class="section-desc" style="margin-bottom:10px;">How often subsequent drips are released. Defaults to the subscription's base frequency.</div>
-          <div style="display:flex; gap:8px; align-items:center; margin-bottom:16px;">
-            <span style="font-size:13px; color:#6d7175; white-space:nowrap;">Every</span>
-            <input type="number" value="1" style="width:64px;">
-            <select style="width:130px;"><option>Month(s)</option><option>Week(s)</option><option>Day(s)</option></select>
-          </div>
+          <div style="font-size:13px; color:#6d7175; line-height:1.5; margin-bottom:0;">Drips are released on the subscriber's base billing frequency. Prepaid subscribers continue to receive drips for the full duration of their prepaid term.</div>
           <hr class="divider">
-          <div class="check-row" style="margin-bottom:0;">
+          <div class="check-row">
             <input type="checkbox" id="seq-retain">
             <div>
               <label for="seq-retain" class="check-label">Retain access after cancellation or pause</label>
               <div class="check-desc">Customers keep access to drips they've already received, but won't receive new ones.</div>
+            </div>
+          </div>
+          <div class="check-row" style="margin-bottom:0;">
+            <input type="checkbox" id="seq-revoke-refund">
+            <div>
+              <label for="seq-revoke-refund" class="check-label">Revoke access after a refund</label>
+              <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
             </div>
           </div>
         </div>
@@ -2008,11 +2012,18 @@
             </div>
           </div>
           <hr class="divider">
-          <div class="check-row" style="margin-bottom:0;">
+          <div class="check-row">
             <input type="checkbox" id="tb-retain" checked>
             <div>
               <label for="tb-retain" class="check-label">Retain access after cancellation or pause</label>
               <div class="check-desc">Customers keep access to time-based drips they've already received, but won't receive new ones.</div>
+            </div>
+          </div>
+          <div class="check-row" style="margin-bottom:0;">
+            <input type="checkbox" id="tb-revoke-refund">
+            <div>
+              <label for="tb-revoke-refund" class="check-label">Revoke access after a refund</label>
+              <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
             </div>
           </div>
         </div>
@@ -2680,6 +2691,13 @@
             <div class="check-desc">When disabled, customers lose access to library files as soon as their subscription is cancelled or expires.</div>
           </div>
         </div>
+        <div class="check-row">
+          <input type="checkbox" id="lib-revoke-refund">
+          <div>
+            <label for="lib-revoke-refund" class="check-label">Revoke access after a refund</label>
+            <div class="check-desc">After refunding an order, customers won't be able to access library files from that order.</div>
+          </div>
+        </div>
 
         <hr class="divider">
 
@@ -2772,6 +2790,13 @@
             <div>
               <label for="cp-retain" class="check-label">Retain access after cancellation</label>
               <div class="check-desc">When disabled, the download button is hidden on product pages as soon as the subscription is cancelled or expires.</div>
+            </div>
+          </div>
+          <div class="check-row">
+            <input type="checkbox" id="cp-revoke-refund">
+            <div>
+              <label for="cp-revoke-refund" class="check-label">Revoke access after a refund</label>
+              <div class="check-desc">After refunding an order, the download button is hidden on product pages from that order.</div>
             </div>
           </div>
 
@@ -3192,13 +3217,6 @@
         <div class="section-desc" style="margin-bottom:12px;"></div>
 
         <div class="check-row">
-          <input type="checkbox" id="retain-access">
-          <div>
-            <label for="retain-access" class="check-label">Customers retain access to files after they cancel / pause</label>
-            <div class="check-desc">Customers will still be able to download files in the drips they have access to, but not get access to new content.</div>
-          </div>
-        </div>
-        <div class="check-row">
           <input type="checkbox" id="cancel-reason" checked>
           <div>
             <label for="cancel-reason" class="check-label">Require the customer to provide a cancellation reason</label>
@@ -3342,18 +3360,6 @@
     <div class="card">
       <div class="card-header">Subscription settings</div>
       <div class="card-body">
-
-        <div class="section-title">Order fulfillment</div>
-        <div class="section-desc" style="margin-bottom:10px;"></div>
-        <div class="check-row">
-          <input type="checkbox" id="auto-fulfill" checked>
-          <div>
-            <label for="auto-fulfill" class="check-label">Automatically fulfill orders</label>
-            <div class="check-desc">When enabled, all subscription orders (both new subscriptions and renewals) will be automatically marked as fulfilled.</div>
-          </div>
-        </div>
-
-        <hr class="divider">
 
         <div class="section-title">Tagging</div>
         <div class="section-desc">Apply tags to customers and orders generated for this subscription.</div>
