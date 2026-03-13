@@ -1938,7 +1938,6 @@
             <span style="font-size:13px; color:#6d7175; white-space:nowrap;">Every</span>
             <input type="number" value="1" style="width:64px;">
             <select style="width:130px;"><option>Month(s)</option><option>Week(s)</option><option>Day(s)</option></select>
-            <span style="font-size:12px; color:#6d7175; font-style:italic;">overrides base frequency</span>
           </div>
           <hr class="divider">
           <div class="check-row" style="margin-bottom:0;">
@@ -2009,15 +2008,6 @@
             </div>
           </div>
           <hr class="divider">
-          <div class="section-title" style="margin-bottom:6px;">Delivery frequency</div>
-          <div class="section-desc" style="margin-bottom:10px;">How often new time-based drips are checked and delivered. Defaults to the subscription's base frequency.</div>
-          <div style="display:flex; gap:8px; align-items:center; margin-bottom:16px;">
-            <span style="font-size:13px; color:#6d7175; white-space:nowrap;">Every</span>
-            <input type="number" value="1" style="width:64px;">
-            <select style="width:130px;"><option>Month(s)</option><option>Week(s)</option><option>Day(s)</option></select>
-            <span style="font-size:12px; color:#6d7175; font-style:italic;">overrides base frequency</span>
-          </div>
-          <hr class="divider">
           <div class="check-row" style="margin-bottom:0;">
             <input type="checkbox" id="tb-retain" checked>
             <div>
@@ -2031,7 +2021,7 @@
       <!-- Drip list -->
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
         <div style="font-size:14px; font-weight:600;">Drips</div>
-        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showPage('drips-new')">+ New drip</button>
+        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showPage('drips-new-timebased')">+ New drip</button>
       </div>
       <div class="card">
         <table style="width:100%; border-collapse:collapse; font-size:13px;">
@@ -2077,6 +2067,7 @@
         <div class="field">
           <label>Name <span class="required">*</span></label>
           <input type="text" placeholder="e.g. Month 4 Collection" style="max-width:400px;">
+          <div class="field-hint">Visible to customers in the portal.</div>
         </div>
         <div class="field">
           <label>Order <span class="required">*</span></label>
@@ -2089,7 +2080,7 @@
 
     <!-- Cover image -->
     <div class="card">
-      <div class="card-header">Cover image</div>
+      <div class="card-header">Cover image <span style="font-size:12px; font-weight:400; color:#6d7175;">(optional)</span></div>
       <div class="card-body">
         <div class="section-desc" style="margin-bottom:14px;">Displayed on the customer portal when customers browse their drips. Recommended size depends on the ratio you select.</div>
         <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
@@ -2159,6 +2150,168 @@
     </div>
 
     <!-- Notify customers -->
+    <div class="card">
+      <div class="card-body" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+        <div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:3px;">Notify customers</div>
+          <div style="font-size:12px; color:#6d7175;">If you make changes to a drip, you can notify subscribers with an email.</div>
+        </div>
+        <button class="btn btn-plain" style="border:1px solid #babec3; white-space:nowrap; display:flex; align-items:center; gap:6px;">
+          <span>✉️</span> Notify customers
+        </button>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
+      <button class="btn btn-plain" onclick="showPage('drips-detail')">Cancel</button>
+      <button class="btn btn-plain" style="border:1px solid #babec3;">Save draft</button>
+      <button class="btn btn-primary">Publish</button>
+    </div>
+  </div>
+
+  <!-- Time-based new drip page -->
+  <div id="page-drips-new-timebased" style="display:none; padding:24px 28px; max-width:900px;">
+    <button onclick="showPage('drips-detail')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Really Awesome Doodles</button>
+    <h1 style="font-size:20px; font-weight:700; margin-bottom:20px;">New time-based drip</h1>
+
+    <div class="card">
+      <div class="card-header">Drip details</div>
+      <div class="card-body">
+        <div class="field">
+          <label>Name <span class="required">*</span></label>
+          <input type="text" placeholder="e.g. March 2025 Drop" style="max-width:400px;">
+          <div class="field-hint">Visible to customers in the portal.</div>
+        </div>
+        <hr class="divider">
+        <div style="margin-bottom:6px; font-size:12px; font-weight:500; color:#202223;">Subscriber eligibility</div>
+        <div style="font-size:12px; color:#6d7175; margin-bottom:14px;">This drip will be given to customers who are active or who have a paid order renewal during this timeframe:</div>
+
+        <!-- Prototype toggle -->
+        <div style="border:2px dashed #c9a227; border-radius:6px; padding:10px 12px; margin-bottom:14px; background:#fffdf0;">
+          <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:8px;">Prototype control</div>
+          <div style="display:flex; gap:20px;">
+            <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer; font-weight:400; margin-bottom:0;">
+              <input type="radio" name="tb-eligibility-type" value="anchored" checked onchange="toggleTBEligibility('anchored')"> Billing anchor
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer; font-weight:400; margin-bottom:0;">
+              <input type="radio" name="tb-eligibility-type" value="window" onchange="toggleTBEligibility('window')"> Rolling window
+            </label>
+          </div>
+        </div>
+
+        <!-- Anchored mode -->
+        <div id="tb-eligibility-anchored">
+          <div class="field" style="max-width:220px; margin-bottom:14px;">
+            <label>Anchored billing date</label>
+            <select onchange="updateAnchorWindow(this.value)">
+              <option value="May 1, 2025">May 1, 2025</option>
+              <option value="Jun 1, 2025">Jun 1, 2025</option>
+              <option value="Jul 1, 2025">Jul 1, 2025</option>
+              <option value="Aug 1, 2025">Aug 1, 2025</option>
+              <option value="Sep 1, 2025">Sep 1, 2025</option>
+              <option value="Oct 1, 2025">Oct 1, 2025</option>
+              <option disabled>Etc.</option>
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:8px;">
+            <div class="field" style="margin-bottom:0;">
+              <label>Eligible from</label>
+              <input type="text" id="tb-anchor-from" value="May 1, 2025" disabled style="background:#f6f6f7; color:#6d7175;">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Eligible until</label>
+              <input type="text" id="tb-anchor-to" value="May 31, 2025" disabled style="background:#f6f6f7; color:#6d7175;">
+            </div>
+          </div>
+          <div style="font-size:12px; color:#6d7175;">Subscribers who renew on this anchor date are eligible, as well as prepaid subscribers active during this window.</div>
+        </div>
+
+        <!-- Rolling window mode -->
+        <div id="tb-eligibility-window" style="display:none;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="field" style="margin-bottom:0;">
+              <label>From</label>
+              <input type="text" placeholder="May 1, 2025">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label>Until</label>
+              <input type="text" placeholder="May 31, 2025">
+              <div class="field-hint">Leave blank to include all future subscribers.</div>
+            </div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div style="margin-bottom:4px; font-size:13px; font-weight:600; color:#202223;">Publishing settings</div>
+        <div id="tb-publish-notice" style="font-size:12px; color:#6d7175; margin-bottom:14px;">You have an anchored billing date on [May 1, 2025], you must publish your drip on or after that date.</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:10px;">
+          <div class="field" style="margin-bottom:0;">
+            <label>Publish date <span class="required">*</span></label>
+            <input type="date" id="tb-publish-date" min="2025-05-01" max="2025-05-31">
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Publish time</label>
+            <div style="border:1px solid #babec3; border-radius:6px; overflow:hidden;">
+              <div style="display:flex; align-items:center; padding:7px 10px; gap:10px; border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
+                <span style="font-size:12px; color:#6d7175; flex:1;">Renewing subscribers</span>
+                <span style="font-size:12px; color:#202223; font-style:italic;">After order is paid</span>
+              </div>
+              <div style="display:flex; align-items:center; padding:7px 10px; gap:10px; background:#fff;">
+                <span style="font-size:12px; color:#6d7175; flex:1;">Prepaid subscribers</span>
+                <input type="text" placeholder="12:00 PM" style="width:110px; border:1px solid #babec3; border-radius:4px; padding:4px 8px; font-size:12px;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="border:2px dashed #c9a227; border-radius:6px; padding:8px 12px; background:#fffdf0;">
+          <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype note</div>
+          <div style="font-size:12px; color:#6d7175;">Constrained to on or after anchored billing date/time.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cover image -->
+    <div class="card">
+      <div class="card-header">Cover image <span style="font-size:12px; font-weight:400; color:#6d7175;">(optional)</span></div>
+      <div class="card-body">
+        <div class="section-desc" style="margin-bottom:14px;">Displayed on the customer portal when customers browse their drips. Recommended size depends on the ratio you select.</div>
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+          <div style="width:200px; height:140px; border:2px dashed #babec3; border-radius:8px; background:#fafbfb; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;">
+            <div style="font-size:28px; margin-bottom:6px;">🖼</div>
+            <div style="font-size:12px; color:#6d7175; text-align:center; padding:0 12px;">Click to upload<br>or drag & drop</div>
+          </div>
+          <div style="font-size:12px; color:#6d7175; background:#f6f6f7; border-radius:6px; padding:8px 10px; line-height:1.5; align-self:flex-end;">
+            Cover image aspect ratio is configured in<br><button onclick="showPage('portal')" style="background:none; border:none; cursor:pointer; color:#5c6ac4; font-size:12px; padding:0;">Customer Portal settings →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="max-width:none;">
+      <div class="card-header">Files</div>
+      <div class="card-body" style="padding:0;">
+        <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;">
+          <div style="font-size:24px; margin-bottom:6px;">📁</div>
+          <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:2px;">Drop files here or click to upload</div>
+          <div style="font-size:12px; color:#6d7175;">PDF, ZIP, PNG, JPG, MP4 and more</div>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
+              <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">File</th>
+              <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Basic<br><input type="checkbox" checked title="Select all"></th>
+              <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Premium<br><input type="checkbox" checked title="Select all"></th>
+              <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Size</th>
+              <th style="padding:8px 16px; width:32px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>march-coloring-pack.pdf</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">12.4 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
+            <tr><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>march-wallpaper.png</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">4.1 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-body" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
         <div>
@@ -3305,7 +3458,7 @@
 </div><!-- /app-shell -->
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const allPages = ['dashboard','plans','settings','new','drips','drips-detail','drips-new','file-detail','library','library-detail','sub-detail','subscribers','customer-detail','portal','widget','notifications','portal-grid','portal-list'];
+  const allPages = ['dashboard','plans','settings','new','drips','drips-detail','drips-new','drips-new-timebased','file-detail','library','library-detail','sub-detail','subscribers','customer-detail','portal','widget','notifications','portal-grid','portal-list'];
 
   function showPage(page) {
     allPages.forEach(p => {
@@ -3498,6 +3651,33 @@
     if (active) active.style.display = 'block';
     const activeBtn = document.getElementById('notif-nav-' + section);
     if (activeBtn) { activeBtn.style.background = '#e3e3e3'; activeBtn.style.fontWeight = '500'; }
+  }
+
+  function toggleTBEligibility(mode) {
+    document.getElementById('tb-eligibility-anchored').style.display = mode === 'anchored' ? 'block' : 'none';
+    document.getElementById('tb-eligibility-window').style.display = mode === 'window' ? 'block' : 'none';
+  }
+
+  const anchorWindows = {
+    'May 1, 2025': { from: 'May 1, 2025', to: 'May 31, 2025', minISO: '2025-05-01', maxISO: '2025-05-31' },
+    'Jun 1, 2025': { from: 'Jun 1, 2025', to: 'Jun 30, 2025', minISO: '2025-06-01', maxISO: '2025-06-30' },
+    'Jul 1, 2025': { from: 'Jul 1, 2025', to: 'Jul 31, 2025', minISO: '2025-07-01', maxISO: '2025-07-31' },
+    'Aug 1, 2025': { from: 'Aug 1, 2025', to: 'Aug 31, 2025', minISO: '2025-08-01', maxISO: '2025-08-31' },
+    'Sep 1, 2025': { from: 'Sep 1, 2025', to: 'Sep 30, 2025', minISO: '2025-09-01', maxISO: '2025-09-30' },
+    'Oct 1, 2025': { from: 'Oct 1, 2025', to: 'Oct 31, 2025', minISO: '2025-10-01', maxISO: '2025-10-31' },
+  };
+
+  function updateAnchorWindow(value) {
+    const dates = anchorWindows[value];
+    if (!dates) return;
+    document.getElementById('tb-anchor-from').value = dates.from;
+    document.getElementById('tb-anchor-to').value = dates.to;
+    document.getElementById('tb-publish-notice').textContent =
+      `You have an anchored billing date on [${value}], you must publish your drip on or after that date.`;
+    const publishDate = document.getElementById('tb-publish-date');
+    publishDate.min = dates.minISO;
+    publishDate.max = dates.maxISO;
+    publishDate.value = '';
   }
 
   function dismissStaged() {
