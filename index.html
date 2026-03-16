@@ -1593,12 +1593,21 @@
           </div>
         </div>
 
-        <div class="field" style="margin-bottom:0;">
+        <div class="field">
           <label>Subscription order tags <span style="font-weight:400; color:#6d7175;">(applied to recurring orders)</span></label>
           <div style="display:flex; gap:6px;">
             <input type="text" placeholder="">
             <button class="btn btn-plain" style="border:1px solid #babec3; border-radius:6px; white-space:nowrap;">Add</button>
           </div>
+        </div>
+
+        <div class="field" style="margin-bottom:0;">
+          <label>Failed payment tags <span style="font-weight:400; color:#6d7175;">(applied to customers with a failed payment)</span></label>
+          <div style="display:flex; gap:6px;">
+            <input type="text" placeholder="">
+            <button class="btn btn-plain" style="border:1px solid #babec3; border-radius:6px; white-space:nowrap;">Add</button>
+          </div>
+          <div class="field-hint">These tags are removed when the payment is successfully collected.</div>
         </div>
 
       </div>
