@@ -177,6 +177,7 @@
       <button class="left-nav-item" onclick="showPage('subscribers')">Subscribers</button>
       <button class="left-nav-item" onclick="showPage('drips')">Drips</button>
       <button class="left-nav-item" onclick="showPage('library')">Libraries</button>
+      <button class="left-nav-item" onclick="showPage('content-pass')">Content Pass</button>
       <button class="left-nav-item" onclick="showPage('portal')">Customer Portal</button>
       <button class="left-nav-item" onclick="showPage('widget')">Subscription Widget</button>
       <button class="left-nav-item" onclick="showPage('notifications')">Notifications</button>
@@ -2879,177 +2880,6 @@
     </div>
     </div><!-- /file-access-body -->
 
-    <!-- ─── CONTENT PASS ───────────────────────────────────────────── -->
-    <div style="border:2px dashed #c9a227; border-radius:6px; padding:6px 10px; background:#fffdf0; margin-bottom:10px; margin-top:24px;">
-      <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype control</div>
-      <label style="display:inline-flex; align-items:center; gap:8px; font-size:12px; color:#6d7175; cursor:pointer;">
-        <input type="checkbox" id="content-pass-enabled" onchange="toggleContentPass(this.checked)">
-        Show populated state
-      </label>
-    </div>
-    <div style="font-size:11px; font-weight:700; color:#6d7175; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;">Content Pass</div>
-
-    <!-- What is Content Pass -->
-    <div id="content-pass-empty" class="card">
-      <div class="card-header">Content pass</div>
-      <div class="card-body">
-        <div style="background:#f6f6f7; border-radius:8px; padding:14px 16px; font-size:13px; color:#6d7175; line-height:1.6; margin-bottom:16px;">
-          <strong style="color:#202223; display:block; margin-bottom:4px;">How content pass works</strong>
-          Link Shopify products to this library. Subscribers with available downloads can click a download button directly on the product page — no cart or checkout required. Customers who aren't subscribers, or who have exhausted their download limit, see a normal purchase option instead. Similar to how Shutterstock works with subscription credits.
-        </div>
-        <button onclick="document.getElementById('content-pass-enabled').checked=true; toggleContentPass(true)" class="btn btn-primary">Get started</button>
-      </div>
-    </div>
-
-    <!-- Content pass settings (hidden until enabled) -->
-    <div id="content-pass-settings" style="display:none;">
-
-      <div class="card">
-        <div class="card-header">Content pass settings</div>
-        <div class="card-body">
-
-          <div class="check-row">
-            <input type="checkbox" id="cp-retain">
-            <div>
-              <label for="cp-retain" class="check-label">Retain access after cancellation</label>
-              <div class="check-desc">When disabled, the download button is hidden on product pages as soon as the subscription is cancelled or expires.</div>
-            </div>
-          </div>
-          <div class="check-row">
-            <input type="checkbox" id="cp-revoke-refund">
-            <div>
-              <label for="cp-revoke-refund" class="check-label">Revoke access after a refund</label>
-              <div class="check-desc">After refunding an order, the download button is hidden on product pages from that order.</div>
-            </div>
-          </div>
-
-          <hr class="divider">
-
-          <div class="section-title" style="margin-bottom:4px;">Download limits by tier</div>
-          <div class="section-desc" style="margin-bottom:14px;">How many distinct products each tier can download within a timeframe. When a subscriber's credits run out, the download button is replaced with the standard purchase option. Leave blank for unlimited.</div>
-
-          <!-- Unique product limit -->
-          <div style="display:grid; grid-template-columns:140px 1fr 160px; gap:10px; align-items:center; margin-bottom:6px; padding:0 2px;">
-            <div></div>
-            <div style="font-size:11px; font-weight:600; color:#6d7175;">Credits</div>
-            <div style="font-size:11px; font-weight:600; color:#6d7175;">Per</div>
-          </div>
-          <div style="display:grid; grid-template-columns:140px 1fr 160px; gap:10px; align-items:center; margin-bottom:10px;">
-            <div style="font-size:13px; font-weight:500;">Basic</div>
-            <input type="number" placeholder="e.g. 5" style="max-width:160px;">
-            <select style="max-width:160px;"><option>Per month</option><option>Per billing cycle</option><option>Per year</option><option>All time</option></select>
-          </div>
-          <div style="display:grid; grid-template-columns:140px 1fr 160px; gap:10px; align-items:center; margin-bottom:12px;">
-            <div style="font-size:13px; font-weight:500;">Premium</div>
-            <input type="number" placeholder="e.g. 15" style="max-width:160px;">
-            <select style="max-width:160px;"><option>Per month</option><option>Per billing cycle</option><option>Per year</option><option>All time</option></select>
-          </div>
-          <div class="check-row" style="margin-bottom:0;">
-            <input type="checkbox" id="cp-repeat-downloads" checked>
-            <div><label for="cp-repeat-downloads" class="check-label">Allow same product to be downloaded repeatedly without affecting limit</label></div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Linked products -->
-      <div class="card">
-        <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
-          Linked products
-          <div style="display:flex; gap:8px;" id="cp-product-btn-area">
-            <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;" onclick="setCpProductMode('all')">Link all products</button>
-            <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;" onclick="setCpProductMode('collection')">Select collection</button>
-            <button class="btn btn-primary" style="font-size:12px; padding:4px 12px;" onclick="setCpProductMode('select')">Select products</button>
-          </div>
-        </div>
-        <div class="card-body" style="padding:0;">
-
-          <!-- All products mode -->
-          <div id="cp-all-products" style="display:none; padding:14px 16px; background:#f0faf0; border-radius:0 0 8px 8px;">
-            <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#155724;">
-              <span style="font-size:16px;">✓</span>
-              <span><strong>All products linked.</strong> The download button will appear on every product in your store for eligible subscribers.</span>
-            </div>
-            <button onclick="setCpProductMode('none')" style="margin-top:10px; background:none; border:none; cursor:pointer; font-size:12px; color:#6d7175; text-decoration:underline; padding:0;">Switch to selecting specific products</button>
-          </div>
-
-          <!-- Select products mode -->
-          <div id="cp-select-products" style="display:none;">
-            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; gap:8px;">
-              <input type="text" placeholder="Search products..." style="flex:1; max-width:320px;">
-              <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;">+ Add product</button>
-            </div>
-            <table style="width:100%; border-collapse:collapse; font-size:13px;">
-              <thead>
-                <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
-                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Product</th>
-                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Type</th>
-                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Price</th>
-                  <th style="padding:8px 16px; width:32px;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid #f1f2f4;">
-                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>January Coloring Pack</div></td>
-                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
-                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
-                </tr>
-                <tr style="border-bottom:1px solid #f1f2f4;">
-                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>February Coloring Pack</div></td>
-                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
-                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
-                </tr>
-                <tr>
-                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🖌</div>Brush Pack Vol. 1</div></td>
-                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
-                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$12.00</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Empty state -->
-          <div id="cp-no-products" style="padding:32px; text-align:center; color:#6d7175;">
-            <div style="font-size:28px; margin-bottom:8px;">📦</div>
-            <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:4px;">No products linked yet</div>
-            <div style="font-size:12px;">Choose "Link all products", "Select collection", or "Select products" above to get started.</div>
-          </div>
-
-          <!-- Select collection mode -->
-          <div id="cp-select-collection" style="display:none;">
-            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; gap:8px;">
-              <input type="text" placeholder="Search collections..." style="flex:1; max-width:320px;">
-            </div>
-            <table style="width:100%; border-collapse:collapse; font-size:13px;">
-              <thead>
-                <tr style="border-bottom:1px solid #e1e3e5; background:#f9fafb;">
-                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Collection</th>
-                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Products</th>
-                  <th style="padding:8px 16px; width:32px;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom:1px solid #f1f2f4;">
-                  <td style="padding:10px 16px; font-weight:500;">Coloring Pages</td>
-                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">24</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
-                </tr>
-                <tr>
-                  <td style="padding:10px 16px; font-weight:500;">Digital Downloads</td>
-                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">38</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
 
     <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
       <button class="btn btn-plain" onclick="showPage('library')">Cancel</button>
@@ -3801,11 +3631,208 @@
 
   </div><!-- /page-cancel-mitigation -->
 
+  <!-- Content Pass list page -->
+  <div id="page-content-pass" style="display:none; padding:24px 28px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <h1 style="font-size:20px; font-weight:700;">Content Pass</h1>
+    </div>
+
+    <div class="card">
+      <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #e1e3e5; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('content-pass-detail')">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="font-size:20px;">🎟️</div>
+          <div>
+            <div style="font-size:13px; font-weight:500;">Really Awesome Doodles</div>
+            <div style="font-size:11px; color:#6d7175;">3 products linked</div>
+          </div>
+        </div>
+        <span style="color:#6d7175; font-size:16px;">›</span>
+      </div>
+      <div style="padding:12px 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('content-pass-detail')">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="font-size:20px;">🎟️</div>
+          <div>
+            <div style="font-size:13px; font-weight:500;">Creator's Club</div>
+            <div style="font-size:11px; color:#6d7175;">Not set up</div>
+          </div>
+        </div>
+        <span style="color:#6d7175; font-size:16px;">›</span>
+      </div>
+    </div>
+  </div><!-- /page-content-pass -->
+
+  <!-- Content Pass detail page -->
+  <div id="page-content-pass-detail" style="display:none; padding:24px 28px; max-width:780px;">
+    <button onclick="showPage('content-pass')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Content Pass</button>
+    <h1 style="font-size:20px; font-weight:700; margin-bottom:20px;">Really Awesome Doodles</h1>
+
+    <!-- Prototype control -->
+    <div style="border:2px dashed #c9a227; border-radius:6px; padding:6px 10px; background:#fffdf0; margin-bottom:10px;">
+      <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype control</div>
+      <label style="display:inline-flex; align-items:center; gap:8px; font-size:12px; color:#6d7175; cursor:pointer;">
+        <input type="checkbox" id="content-pass-enabled" onchange="toggleContentPass(this.checked)">
+        Show populated state
+      </label>
+    </div>
+
+    <!-- Empty state -->
+    <div id="content-pass-empty" class="card">
+      <div class="card-header">Content pass</div>
+      <div class="card-body">
+        <div style="background:#f6f6f7; border-radius:8px; padding:14px 16px; font-size:13px; color:#6d7175; line-height:1.6; margin-bottom:16px;">
+          <strong style="color:#202223; display:block; margin-bottom:4px;">How content pass works</strong>
+          Link Shopify products to this subscription. Subscribers with available credits can click a download button directly on the product page — no cart or checkout required. Customers who aren't subscribers, or who have exhausted their credits, see a normal purchase option instead.
+        </div>
+        <button onclick="document.getElementById('content-pass-enabled').checked=true; toggleContentPass(true)" class="btn btn-primary">Get started</button>
+      </div>
+    </div>
+
+    <!-- Populated state -->
+    <div id="content-pass-settings" style="display:none;">
+
+      <div class="card">
+        <div class="card-header">Content pass settings</div>
+        <div class="card-body">
+          <div class="check-row">
+            <input type="checkbox" id="cp-retain">
+            <div>
+              <label for="cp-retain" class="check-label">Retain access after cancellation</label>
+              <div class="check-desc">When disabled, the download button is hidden on product pages as soon as the subscription is cancelled or expires.</div>
+            </div>
+          </div>
+          <div class="check-row">
+            <input type="checkbox" id="cp-revoke-refund">
+            <div>
+              <label for="cp-revoke-refund" class="check-label">Revoke access after a refund</label>
+              <div class="check-desc">After refunding an order, the download button is hidden on product pages from that order.</div>
+            </div>
+          </div>
+          <hr class="divider">
+          <div class="section-title" style="margin-bottom:4px;">Download limits by tier</div>
+          <div class="section-desc" style="margin-bottom:14px;">How many distinct products each tier can download within a timeframe. When a subscriber's credits run out, the download button is replaced with the standard purchase option. Leave blank for unlimited.</div>
+          <div style="display:grid; grid-template-columns:140px 1fr 160px; gap:10px; align-items:center; margin-bottom:6px; padding:0 2px;">
+            <div></div>
+            <div style="font-size:11px; font-weight:600; color:#6d7175;">Credits</div>
+            <div style="font-size:11px; font-weight:600; color:#6d7175;">Per</div>
+          </div>
+          <div style="display:grid; grid-template-columns:140px 1fr 160px; gap:10px; align-items:center; margin-bottom:10px;">
+            <div style="font-size:13px; font-weight:500;">Basic</div>
+            <input type="number" placeholder="e.g. 5" style="max-width:160px;">
+            <select style="max-width:160px;"><option>Per month</option><option>Per billing cycle</option><option>Per year</option><option>All time</option></select>
+          </div>
+          <div style="display:grid; grid-template-columns:140px 1fr 160px; gap:10px; align-items:center; margin-bottom:12px;">
+            <div style="font-size:13px; font-weight:500;">Premium</div>
+            <input type="number" placeholder="e.g. 15" style="max-width:160px;">
+            <select style="max-width:160px;"><option>Per month</option><option>Per billing cycle</option><option>Per year</option><option>All time</option></select>
+          </div>
+          <div class="check-row" style="margin-bottom:0;">
+            <input type="checkbox" id="cp-repeat-downloads" checked>
+            <div><label for="cp-repeat-downloads" class="check-label">Allow same product to be downloaded repeatedly without affecting limit</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linked products -->
+      <div class="card">
+        <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
+          Linked products
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;" onclick="setCpProductMode('all')">Link all products</button>
+            <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;" onclick="setCpProductMode('collection')">Select collection</button>
+            <button class="btn btn-primary" style="font-size:12px; padding:4px 12px;" onclick="setCpProductMode('select')">Select products</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <div id="cp-all-products" style="display:none; padding:14px 16px; background:#f0faf0; border-radius:0 0 8px 8px;">
+            <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#155724;">
+              <span style="font-size:16px;">✓</span>
+              <span><strong>All products linked.</strong> The download button will appear on every product in your store for eligible subscribers.</span>
+            </div>
+            <button onclick="setCpProductMode('none')" style="margin-top:10px; background:none; border:none; cursor:pointer; font-size:12px; color:#6d7175; text-decoration:underline; padding:0;">Switch to selecting specific products</button>
+          </div>
+          <div id="cp-select-products" style="display:none;">
+            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; gap:8px;">
+              <input type="text" placeholder="Search products..." style="flex:1; max-width:320px;">
+              <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;">+ Add product</button>
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:13px;">
+              <thead>
+                <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
+                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Product</th>
+                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Type</th>
+                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Price</th>
+                  <th style="padding:8px 16px; width:32px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f1f2f4;">
+                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>January Coloring Pack</div></td>
+                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
+                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f2f4;">
+                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>February Coloring Pack</div></td>
+                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
+                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🖌</div>Brush Pack Vol. 1</div></td>
+                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$12.00</td>
+                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="cp-no-products" style="padding:32px; text-align:center; color:#6d7175;">
+            <div style="font-size:28px; margin-bottom:8px;">📦</div>
+            <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:4px;">No products linked yet</div>
+            <div style="font-size:12px;">Choose "Link all products", "Select collection", or "Select products" above to get started.</div>
+          </div>
+          <div id="cp-select-collection" style="display:none;">
+            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; gap:8px;">
+              <input type="text" placeholder="Search collections..." style="flex:1; max-width:320px;">
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:13px;">
+              <thead>
+                <tr style="border-bottom:1px solid #e1e3e5; background:#f9fafb;">
+                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Collection</th>
+                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Products</th>
+                  <th style="padding:8px 16px; width:32px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f1f2f4;">
+                  <td style="padding:10px 16px; font-weight:500;">Coloring Pages</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">24</td>
+                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 16px; font-weight:500;">Digital Downloads</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">38</td>
+                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-pass-settings -->
+
+    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
+      <button class="btn btn-plain" onclick="showPage('content-pass')">Cancel</button>
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </div><!-- /page-content-pass-detail -->
+
   </div><!-- /main-content -->
 </div><!-- /app-shell -->
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const allPages = ['dashboard','plans','settings','new','drips','drips-detail','drips-new','drips-new-timebased','file-detail','library','library-detail','sub-detail','subscribers','customer-detail','portal','widget','notifications','portal-grid','portal-list','cancel-mitigation'];
+  const allPages = ['dashboard','plans','settings','new','drips','drips-detail','drips-new','drips-new-timebased','file-detail','library','library-detail','sub-detail','subscribers','customer-detail','portal','widget','notifications','portal-grid','portal-list','cancel-mitigation','content-pass','content-pass-detail'];
 
   function showPage(page) {
     allPages.forEach(p => {
