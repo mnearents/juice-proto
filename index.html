@@ -2239,7 +2239,10 @@
     </div>
 
     <div class="card" style="max-width:none;">
-      <div class="card-header">Files</div>
+      <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
+        Files
+        <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add section</button>
+      </div>
       <div class="card-body" style="padding:0;">
         <!-- Upload zone -->
         <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;" id="drip-upload-zone">
@@ -2270,22 +2273,73 @@
         <table style="width:100%; border-collapse:collapse; font-size:13px;">
           <thead>
             <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
-              <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">File</th>
+              <th style="width:36px; padding:8px 0 8px 12px;"></th>
+              <th style="padding:8px 12px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">File</th>
               <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Basic<br><input type="checkbox" checked title="Select all" onclick="toggleCol(this, 'basic')"></th>
               <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Premium<br><input type="checkbox" checked title="Select all" onclick="toggleCol(this, 'premium')"></th>
               <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Size</th>
-              <th style="padding:8px 16px; width:32px;"></th>
+              <th style="width:36px;"></th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('file-detail')"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>january-coloring-pack.pdf</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">14.2 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>january-bonus-pages.pdf</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">8.7 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>winter-theme-wallpaper.png</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">3.1 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📦</span>brushes-and-swatches.zip</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">22.0 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📦</span>premium-brushes-extended.zip</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">41.3 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>🎬</span>speed-coloring-tutorial.mp4</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">312 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>reference-guide.pdf</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">2.3 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>january-desktop-wallpaper.png</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">5.4 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
+            <!-- Section A -->
+            <tr style="background:#f6f6f7; border-top:1px solid #e1e3e5; border-bottom:1px solid #e1e3e5;">
+              <td style="padding:8px 4px 8px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td colspan="5" style="padding:8px 12px; font-size:12px; font-weight:600; color:#6d7175;">Section of Files A</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('file-detail')">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>january-coloring-pack.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">14.2 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>january-bonus-pages.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">8.7 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>winter-theme-wallpaper.png</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">3.1 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <!-- Section B -->
+            <tr style="background:#f6f6f7; border-top:1px solid #e1e3e5; border-bottom:1px solid #e1e3e5;">
+              <td style="padding:8px 4px 8px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td colspan="5" style="padding:8px 12px; font-size:12px; font-weight:600; color:#6d7175;">Section of Files B</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📦</span>brushes-and-swatches.zip</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">22.0 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>🎬</span>speed-coloring-tutorial.mp4</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">312 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr>
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>reference-guide.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">2.3 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -2440,7 +2494,10 @@
     </div>
 
     <div class="card" style="max-width:none;">
-      <div class="card-header">Files</div>
+      <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
+        Files
+        <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add section</button>
+      </div>
       <div class="card-body" style="padding:0;">
         <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;">
           <div style="font-size:24px; margin-bottom:6px;">📁</div>
@@ -2450,16 +2507,73 @@
         <table style="width:100%; border-collapse:collapse; font-size:13px;">
           <thead>
             <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
-              <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">File</th>
+              <th style="width:36px; padding:8px 0 8px 12px;"></th>
+              <th style="padding:8px 12px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">File</th>
               <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Basic<br><input type="checkbox" checked title="Select all"></th>
               <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Premium<br><input type="checkbox" checked title="Select all"></th>
               <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Size</th>
-              <th style="padding:8px 16px; width:32px;"></th>
+              <th style="width:36px;"></th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid #f1f2f4;"><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>march-coloring-pack.pdf</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">12.4 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
-            <tr><td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>march-wallpaper.png</div></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td><td style="padding:10px 16px; text-align:right; color:#6d7175;">4.1 MB</td><td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td></tr>
+            <!-- Section A -->
+            <tr style="background:#f6f6f7; border-top:1px solid #e1e3e5; border-bottom:1px solid #e1e3e5;">
+              <td style="padding:8px 4px 8px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td colspan="5" style="padding:8px 12px; font-size:12px; font-weight:600; color:#6d7175;">Section of Files A</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>march-coloring-pack.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">12.4 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>march-wallpaper.png</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">4.1 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>spring-reference-guide.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">2.8 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <!-- Section B -->
+            <tr style="background:#f6f6f7; border-top:1px solid #e1e3e5; border-bottom:1px solid #e1e3e5;">
+              <td style="padding:8px 4px 8px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td colspan="5" style="padding:8px 12px; font-size:12px; font-weight:600; color:#6d7175;">Section of Files B</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📦</span>spring-brushes.zip</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">18.6 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>🎬</span>tutorial-preview.mp4</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">284 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr>
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>color-guide.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">3.5 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
           </tbody>
         </table>
       </div>
