@@ -2185,7 +2185,13 @@
   <!-- DRIPS: New / Edit drip -->
   <div id="page-drips-new" style="display:none; padding:24px 28px; max-width:900px;">
     <button onclick="showPage('drips-detail')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Really Awesome Doodles</button>
-    <h1 style="font-size:20px; font-weight:700; margin-bottom:20px;">New sequential drip</h1>
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <h1 style="font-size:20px; font-weight:700; margin:0;">New sequential drip</h1>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-plain" onclick="showPage('drips-detail')">Cancel</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
 
     <div class="card">
       <div class="card-header">Drip details</div>
@@ -2288,16 +2294,18 @@
       </div>
     </div>
 
-    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
-      <button class="btn btn-plain" onclick="showPage('drips-detail')">Cancel</button>
-      <button class="btn btn-primary">Save</button>
-    </div>
   </div>
 
   <!-- Time-based new drip page -->
   <div id="page-drips-new-timebased" style="display:none; padding:24px 28px; max-width:900px;">
     <button onclick="showPage('drips-detail')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Really Awesome Doodles</button>
-    <h1 style="font-size:20px; font-weight:700; margin-bottom:20px;">New time-based drip</h1>
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <h1 style="font-size:20px; font-weight:700; margin:0;">New time-based drip</h1>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-plain" onclick="showPage('drips-detail')">Cancel</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
 
     <div class="card">
       <div class="card-header">Drip details</div>
@@ -2449,10 +2457,6 @@
       </div>
     </div>
 
-    <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:4px;">
-      <button class="btn btn-plain" onclick="showPage('drips-detail')">Cancel</button>
-      <button class="btn btn-primary">Save</button>
-    </div>
   </div>
 
   <!-- File detail page -->
