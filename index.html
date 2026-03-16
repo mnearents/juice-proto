@@ -177,7 +177,6 @@
       <button class="left-nav-item active" onclick="showPage('plans')">Subscriptions</button>
       <button class="left-nav-item" onclick="showPage('subscribers')">Subscribers</button>
       <button class="left-nav-item" onclick="showPage('drips')">Drips</button>
-      <button class="left-nav-item" onclick="showPage('library')">Libraries</button>
       <button class="left-nav-item" onclick="showPage('content-pass')">Content Pass</button>
       <button class="left-nav-item" onclick="showPage('portal')">Customer Portal</button>
       <button class="left-nav-item" onclick="showPage('widget')">Subscription Widget</button>
@@ -450,7 +449,7 @@
           <div style="font-size:14px; font-weight:600; margin-bottom:2px;">Sequential drips</div>
           <div style="font-size:12px; color:#6d7175;">Delivered in order starting from signup. First drip sent immediately.</div>
         </div>
-        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showPage('drips-new')">+ New drip</button>
+        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showNewDripModal()">+ New drip</button>
       </div>
       <div class="card">
         <table style="width:100%; border-collapse:collapse; font-size:13px;">
@@ -501,7 +500,7 @@
           <div style="font-size:14px; font-weight:600; margin-bottom:2px;">Time-based drips</div>
           <div style="font-size:12px; color:#6d7175;">Delivered to customers who are active during the specified date range.</div>
         </div>
-        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showPage('drips-new')">+ New drip</button>
+        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showNewDripModal()">+ New drip</button>
       </div>
       <div class="card">
         <table style="width:100%; border-collapse:collapse; font-size:13px;">
@@ -2006,178 +2005,91 @@
   </div>
 
   <!-- DRIPS: Detail page (per subscription) -->
-  <div id="page-drips-detail" style="display:none;">
+  <div id="page-drips-detail" style="display:none; padding:24px 28px; max-width:900px;">
 
-    <div style="padding:16px 28px 0;">
-      <button onclick="showPage('drips')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Drips</button>
-      <h1 style="font-size:20px; font-weight:700; margin-bottom:0;">Really Awesome Doodles</h1>
+    <button onclick="showPage('drips')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Drips</button>
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <h1 style="font-size:20px; font-weight:700; margin:0;">Really Awesome Doodles</h1>
+      <button class="btn btn-primary" style="font-size:12px; padding:5px 14px;" onclick="showNewDripModal()">+ New drip</button>
     </div>
 
-    <!-- Tabs -->
-    <div style="border-bottom:1px solid #e1e3e5; padding:0 28px; display:flex; gap:0; margin-top:12px;">
-      <button id="drip-detail-btn-sequential" onclick="switchDripDetailTab('sequential')" style="padding:10px 16px; font-size:13px; font-weight:500; background:none; border:none; border-bottom:2px solid #202223; cursor:pointer; color:#202223; margin-bottom:-1px;">Sequential</button>
-      <button id="drip-detail-btn-timebased" onclick="switchDripDetailTab('timebased')" style="padding:10px 16px; font-size:13px; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; color:#6d7175; margin-bottom:-1px;">Time-based</button>
-    </div>
-
-    <div style="padding:16px 28px 0;">
-      <div style="border:2px dashed #c9a227; border-radius:6px; padding:8px 12px; background:#fffdf0;">
-        <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype note</div>
-        <div style="font-size:12px; color:#6d7175;">Empty state will talk about what these programs are and have a CTA to enable them and start creating drips, like library access.</div>
+    <div class="card" style="max-width:none;">
+      <!-- Filter tabs -->
+      <div style="padding:8px 12px; border-bottom:1px solid #e1e3e5; display:flex; gap:4px;">
+        <button style="padding:5px 12px; font-size:13px; background:#f1f2f4; border:none; border-radius:6px; cursor:pointer; color:#202223; font-weight:500;">All</button>
+        <button style="padding:5px 12px; font-size:13px; background:none; border:none; border-radius:6px; cursor:pointer; color:#6d7175;">Time-Based</button>
+        <button style="padding:5px 12px; font-size:13px; background:none; border:none; border-radius:6px; cursor:pointer; color:#6d7175;">Sequential</button>
+        <button style="padding:5px 12px; font-size:13px; background:none; border:none; border-radius:6px; cursor:pointer; color:#6d7175;">Library</button>
       </div>
-    </div>
-
-    <!-- Sequential tab -->
-    <div id="drip-detail-sequential" style="padding:20px 28px; max-width:900px;">
-
-      <!-- Program settings -->
-      <div class="card">
-        <div class="card-header">Program settings</div>
-        <div class="card-body">
-          <div class="check-row">
-            <input type="checkbox" id="seq-instant2" checked>
-            <div>
-              <label for="seq-instant2" class="check-label">Deliver first drip immediately on purchase</label>
-              <div class="check-desc">The 1st drip in the sequence is sent right away. All subsequent drips follow the schedule below.</div>
-              <div style="border:2px dashed #c9a227; border-radius:6px; padding:6px 10px; background:#fffdf0; margin-top:8px;">
-                <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:2px;">Prototype note</div>
-                <div style="font-size:12px; color:#6d7175;">This setting only applies to anchored billing plans. On rolling billing, the first drip is always delivered immediately.</div>
-              </div>
-            </div>
-          </div>
-          <hr class="divider">
-          <div class="section-title" style="margin-bottom:6px;">Delivery schedule</div>
-          <div style="font-size:13px; color:#6d7175; line-height:1.5; margin-bottom:0;">Drips are released on the subscriber's base billing frequency. Prepaid subscribers continue to receive drips for the full duration of their prepaid term.</div>
-          <hr class="divider">
-          <div class="check-row">
-            <input type="checkbox" id="seq-retain">
-            <div>
-              <label for="seq-retain" class="check-label">Retain access after cancellation or pause</label>
-              <div class="check-desc">Customers keep access to drips they've already received, but won't receive new ones.</div>
-            </div>
-          </div>
-          <div class="check-row" style="margin-bottom:0;">
-            <input type="checkbox" id="seq-revoke-refund">
-            <div>
-              <label for="seq-revoke-refund" class="check-label">Revoke access after a refund</label>
-              <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Drip list -->
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-        <div style="font-size:14px; font-weight:600;">Drips</div>
-        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showPage('drips-new')">+ New drip</button>
-      </div>
-      <div class="card">
-        <table style="width:100%; border-collapse:collapse; font-size:13px;">
-          <thead>
-            <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px; width:48px;">Order</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Name</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Delivered</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Files</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
-              <td style="padding:12px 16px;"><div style="width:28px; height:28px; background:#f1f2f4; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:#6d7175;">1</div></td>
-              <td style="padding:12px 16px; font-weight:500;">Welcome Pack</td>
-              <td style="padding:12px 16px; color:#6d7175;">Immediately</td>
-              <td style="padding:12px 16px; color:#6d7175;">5 files</td>
-              <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4edda; color:#155724; padding:2px 8px; border-radius:12px;">Published</span></td>
-            </tr>
-            <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
-              <td style="padding:12px 16px;"><div style="width:28px; height:28px; background:#f1f2f4; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:#6d7175;">2</div></td>
-              <td style="padding:12px 16px; font-weight:500;">Month 2 Collection</td>
-              <td style="padding:12px 16px; color:#6d7175;">1 month after signup</td>
-              <td style="padding:12px 16px; color:#6d7175;">4 files</td>
-              <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4edda; color:#155724; padding:2px 8px; border-radius:12px;">Published</span></td>
-            </tr>
-            <tr style="cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
-              <td style="padding:12px 16px;"><div style="width:28px; height:28px; background:#f1f2f4; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:#6d7175;">3</div></td>
-              <td style="padding:12px 16px; font-weight:500;">Month 3 Collection</td>
-              <td style="padding:12px 16px; color:#6d7175;">2 months after signup</td>
-              <td style="padding:12px 16px; color:#6d7175;">4 files</td>
-              <td style="padding:12px 16px;"><span style="font-size:11px; background:#fff3cd; color:#856404; padding:2px 8px; border-radius:12px;">Draft</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Time-based tab -->
-    <div id="drip-detail-timebased" style="display:none; padding:20px 28px; max-width:900px;">
-
-      <!-- Program settings -->
-      <div class="card">
-        <div class="card-header">Program settings</div>
-        <div class="card-body">
-          <div class="check-row">
-            <input type="checkbox" id="tb-instant2" checked>
-            <div>
-              <label for="tb-instant2" class="check-label">Deliver first drip immediately on purchase</label>
-              <div class="check-desc">If the customer falls within an active drip's date range at signup, they receive it immediately.</div>
-              <div style="border:2px dashed #c9a227; border-radius:6px; padding:6px 10px; background:#fffdf0; margin-top:8px;">
-                <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:2px;">Prototype note</div>
-                <div style="font-size:12px; color:#6d7175;">This setting only applies to anchored billing plans. On rolling billing, the first drip is always delivered immediately.</div>
-              </div>
-            </div>
-          </div>
-          <hr class="divider">
-          <div class="check-row">
-            <input type="checkbox" id="tb-retain" checked>
-            <div>
-              <label for="tb-retain" class="check-label">Retain access after cancellation or pause</label>
-              <div class="check-desc">Customers keep access to time-based drips they've already received, but won't receive new ones.</div>
-            </div>
-          </div>
-          <div class="check-row" style="margin-bottom:0;">
-            <input type="checkbox" id="tb-revoke-refund">
-            <div>
-              <label for="tb-revoke-refund" class="check-label">Revoke access after a refund</label>
-              <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Drip list -->
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-        <div style="font-size:14px; font-weight:600;">Drips</div>
-        <button class="btn btn-primary" style="font-size:12px; padding:5px 12px;" onclick="showPage('drips-new-timebased')">+ New drip</button>
-      </div>
-      <div class="card">
-        <table style="width:100%; border-collapse:collapse; font-size:13px;">
-          <thead>
-            <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Name</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Active dates</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Release date</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Files</th>
-              <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new-timebased')">
-              <td style="padding:12px 16px; font-weight:500;">January 2025 Drop</td>
-              <td style="padding:12px 16px; color:#6d7175;">Jan 1 – Jan 31, 2025</td>
-              <td style="padding:12px 16px; color:#6d7175;">Jan 1, 2025</td>
-              <td style="padding:12px 16px; color:#6d7175;">6 files</td>
-              <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4edda; color:#155724; padding:2px 8px; border-radius:12px;">Published</span></td>
-            </tr>
-            <tr style="cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new-timebased')">
-              <td style="padding:12px 16px; font-weight:500;">February 2025 Drop</td>
-              <td style="padding:12px 16px; color:#6d7175;">Feb 1 – Feb 28, 2025</td>
-              <td style="padding:12px 16px; color:#6d7175;">Feb 1, 2025</td>
-              <td style="padding:12px 16px; color:#6d7175;">3 files</td>
-              <td style="padding:12px 16px;"><span style="font-size:11px; background:#fff3cd; color:#856404; padding:2px 8px; border-radius:12px;">Draft</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
+            <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Name</th>
+            <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Access</th>
+            <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Files</th>
+            <th style="padding:10px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Time-based drips -->
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new-timebased')">
+            <td style="padding:12px 16px; font-weight:500;">January 2025 Drop</td>
+            <td style="padding:12px 16px; color:#6d7175;">Active between Jan 1 – Jan 31, 2025</td>
+            <td style="padding:12px 16px; color:#6d7175;">6 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4f0d8; color:#108043; padding:2px 8px; border-radius:12px;">Active</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new-timebased')">
+            <td style="padding:12px 16px; font-weight:500;">February 2025 Drop</td>
+            <td style="padding:12px 16px; color:#6d7175;">Active between Feb 1 – Feb 28, 2025</td>
+            <td style="padding:12px 16px; color:#6d7175;">3 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4f0d8; color:#108043; padding:2px 8px; border-radius:12px;">Active</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new-timebased')">
+            <td style="padding:12px 16px; font-weight:500;">March 2025 Drop</td>
+            <td style="padding:12px 16px; color:#6d7175;">Active between Mar 1 – Mar 31, 2025</td>
+            <td style="padding:12px 16px; color:#6d7175;">5 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#fff3cd; color:#856404; padding:2px 8px; border-radius:12px;">Draft</span></td>
+          </tr>
+          <!-- Sequential drips -->
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
+            <td style="padding:12px 16px; font-weight:500;">Welcome Pack</td>
+            <td style="padding:12px 16px; color:#6d7175;">Active on their 1st renewal</td>
+            <td style="padding:12px 16px; color:#6d7175;">5 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4f0d8; color:#108043; padding:2px 8px; border-radius:12px;">Active</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
+            <td style="padding:12px 16px; font-weight:500;">Month 2 Collection</td>
+            <td style="padding:12px 16px; color:#6d7175;">Active on their 2nd renewal</td>
+            <td style="padding:12px 16px; color:#6d7175;">4 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4f0d8; color:#108043; padding:2px 8px; border-radius:12px;">Active</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
+            <td style="padding:12px 16px; font-weight:500;">Month 3 Collection</td>
+            <td style="padding:12px 16px; color:#6d7175;">Active on their 3rd renewal</td>
+            <td style="padding:12px 16px; color:#6d7175;">4 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#e4e5e7; color:#6d7175; padding:2px 8px; border-radius:12px;">Draft</span></td>
+          </tr>
+          <!-- Library drips -->
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
+            <td style="padding:12px 16px; font-weight:500;">Core Resource Library</td>
+            <td style="padding:12px 16px; color:#6d7175;">All active subscribers</td>
+            <td style="padding:12px 16px; color:#6d7175;">12 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4f0d8; color:#108043; padding:2px 8px; border-radius:12px;">Active</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f2f4; cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
+            <td style="padding:12px 16px; font-weight:500;">Premium Template Pack</td>
+            <td style="padding:12px 16px; color:#6d7175;">All active subscribers</td>
+            <td style="padding:12px 16px; color:#6d7175;">8 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#d4f0d8; color:#108043; padding:2px 8px; border-radius:12px;">Active</span></td>
+          </tr>
+          <tr style="cursor:pointer;" onmouseover="this.style.background='#fafbfb'" onmouseout="this.style.background=''" onclick="showPage('drips-new')">
+            <td style="padding:12px 16px; font-weight:500;">Video Tutorial Series</td>
+            <td style="padding:12px 16px; color:#6d7175;">All active subscribers</td>
+            <td style="padding:12px 16px; color:#6d7175;">6 files</td>
+            <td style="padding:12px 16px;"><span style="font-size:11px; background:#e4e5e7; color:#6d7175; padding:2px 8px; border-radius:12px;">Draft</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div><!-- /page-drips-detail -->
@@ -2234,6 +2146,18 @@
           <div style="font-size:12px; color:#6d7175; background:#f6f6f7; border-radius:6px; padding:8px 10px; line-height:1.5; align-self:flex-end;">
             Cover image aspect ratio is configured in<br><button onclick="showPage('portal')" style="background:none; border:none; cursor:pointer; color:#5c6ac4; font-size:12px; padding:0;">Customer Portal settings →</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Tags</div>
+      <div class="card-body">
+        <div style="font-size:13px; color:#6d7175; margin-bottom:14px;">Use tags for filtering on the customer portal. For example: a workout drip could have the tags "Upper body" and "Biceps".</div>
+        <input type="text" placeholder="Add a tag..." style="max-width:320px; margin-bottom:10px;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:6px; background:#f1f2f4; border-radius:20px; padding:4px 12px; font-size:13px; color:#202223;">Activity <button style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:14px; line-height:1; padding:0;">×</button></span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:#f1f2f4; border-radius:20px; padding:4px 12px; font-size:13px; color:#202223;">Cut-outs <button style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:14px; line-height:1; padding:0;">×</button></span>
         </div>
       </div>
     </div>
@@ -2493,6 +2417,18 @@
       </div>
     </div>
 
+    <div class="card">
+      <div class="card-header">Tags</div>
+      <div class="card-body">
+        <div style="font-size:13px; color:#6d7175; margin-bottom:14px;">Use tags for filtering on the customer portal. For example: a workout drip could have the tags "Upper body" and "Biceps".</div>
+        <input type="text" placeholder="Add a tag..." style="max-width:320px; margin-bottom:10px;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:6px; background:#f1f2f4; border-radius:20px; padding:4px 12px; font-size:13px; color:#202223;">Activity <button style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:14px; line-height:1; padding:0;">×</button></span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:#f1f2f4; border-radius:20px; padding:4px 12px; font-size:13px; color:#202223;">Cut-outs <button style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:14px; line-height:1; padding:0;">×</button></span>
+        </div>
+      </div>
+    </div>
+
     <div class="card" style="max-width:none;">
       <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
         Files
@@ -2579,6 +2515,184 @@
       </div>
     </div>
 
+    <div class="card">
+      <div class="card-body" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+        <div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:3px;">Notify customers</div>
+          <div style="font-size:12px; color:#6d7175;">If you make changes to a drip, you can notify subscribers with an email.</div>
+        </div>
+        <button class="btn btn-plain" style="border:1px solid #babec3; white-space:nowrap; display:flex; align-items:center; gap:6px;">
+          <span>✉️</span> Notify customers
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Library drip new page -->
+  <div id="page-drips-new-library" style="display:none; padding:24px 28px; max-width:900px;">
+    <button onclick="showPage('drips-detail')" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#202223; background:none; border:none; cursor:pointer; padding:0; margin-bottom:8px;">← Really Awesome Doodles</button>
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <h1 style="font-size:20px; font-weight:700; margin:0;">New library drip</h1>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-plain" onclick="showPage('drips-detail')">Cancel</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
+        Drip details
+        <div style="display:flex; align-items:center; gap:8px;">
+          <label style="font-size:12px; color:#6d7175; font-weight:400;">Status</label>
+          <select style="font-size:12px; padding:4px 8px; border:1px solid #babec3; border-radius:6px; background:#fff; color:#202223; cursor:pointer;">
+            <option value="active" selected>Active</option>
+            <option value="draft">Draft</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <label>Name <span class="required">*</span></label>
+          <input type="text" placeholder="e.g. Core Resource Library" style="max-width:400px;">
+          <div class="field-hint">Visible to customers in the portal.</div>
+        </div>
+        <hr class="divider">
+        <div style="margin-bottom:6px; font-size:12px; font-weight:500; color:#202223;">Subscriber eligibility</div>
+        <div style="font-size:13px; color:#6d7175; display:flex; align-items:center; gap:8px;">
+          <span style="font-size:16px;">✅</span> Available to all active subscribers
+        </div>
+        <hr class="divider">
+        <div style="margin-bottom:14px; font-size:13px; font-weight:600; color:#202223;">Publishing settings</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div class="field" style="margin-bottom:0;">
+            <label>Publish date <span class="required">*</span></label>
+            <input type="date">
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label>Publish time</label>
+            <input type="time" placeholder="12:00 PM" style="max-width:160px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cover image -->
+    <div class="card">
+      <div class="card-header">Cover image <span style="font-size:12px; font-weight:400; color:#6d7175;">(optional)</span></div>
+      <div class="card-body">
+        <div class="section-desc" style="margin-bottom:14px;">Displayed on the customer portal when customers browse their drips. Recommended size depends on the ratio you select.</div>
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+          <div style="width:200px; height:140px; border:2px dashed #babec3; border-radius:8px; background:#fafbfb; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;">
+            <div style="font-size:28px; margin-bottom:6px;">🖼</div>
+            <div style="font-size:12px; color:#6d7175; text-align:center; padding:0 12px;">Click to upload<br>or drag & drop</div>
+          </div>
+          <div style="font-size:12px; color:#6d7175; background:#f6f6f7; border-radius:6px; padding:8px 10px; line-height:1.5; align-self:flex-end;">
+            Cover image aspect ratio is configured in<br><button onclick="showPage('portal')" style="background:none; border:none; cursor:pointer; color:#5c6ac4; font-size:12px; padding:0;">Customer Portal settings →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Tags</div>
+      <div class="card-body">
+        <div style="font-size:13px; color:#6d7175; margin-bottom:14px;">Use tags for filtering on the customer portal. For example: a workout drip could have the tags "Upper body" and "Biceps".</div>
+        <input type="text" placeholder="Add a tag..." style="max-width:320px; margin-bottom:10px;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; gap:6px; background:#f1f2f4; border-radius:20px; padding:4px 12px; font-size:13px; color:#202223;">Activity <button style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:14px; line-height:1; padding:0;">×</button></span>
+          <span style="display:inline-flex; align-items:center; gap:6px; background:#f1f2f4; border-radius:20px; padding:4px 12px; font-size:13px; color:#202223;">Cut-outs <button style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:14px; line-height:1; padding:0;">×</button></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files -->
+    <div class="card" style="max-width:none;">
+      <div class="card-header" style="display:flex; align-items:center; justify-content:space-between;">
+        Files
+        <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add section</button>
+      </div>
+      <div class="card-body" style="padding:0;">
+        <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;">
+          <div style="font-size:24px; margin-bottom:6px;">📁</div>
+          <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:2px;">Drop files here or click to upload</div>
+          <div style="font-size:12px; color:#6d7175;">PDF, ZIP, PNG, JPG, MP4 and more</div>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:13px;">
+          <thead>
+            <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
+              <th style="width:36px; padding:8px 0 8px 12px;"></th>
+              <th style="padding:8px 12px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">File</th>
+              <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Basic<br><input type="checkbox" checked title="Select all"></th>
+              <th style="padding:8px 12px; text-align:center; font-weight:600; color:#6d7175; font-size:11px;">Premium<br><input type="checkbox" checked title="Select all"></th>
+              <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Size</th>
+              <th style="width:36px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#f6f6f7; border-top:1px solid #e1e3e5; border-bottom:1px solid #e1e3e5;">
+              <td style="padding:8px 4px 8px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td colspan="5" style="padding:8px 12px; font-size:12px; font-weight:600; color:#6d7175;">Section of Files A</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>resource-guide.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">4.1 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>🖼</span>style-guide.png</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">2.8 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📦</span>template-pack.zip</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">18.2 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="background:#f6f6f7; border-top:1px solid #e1e3e5; border-bottom:1px solid #e1e3e5;">
+              <td style="padding:8px 4px 8px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td colspan="5" style="padding:8px 12px; font-size:12px; font-weight:600; color:#6d7175;">Section of Files B</td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>🎬</span>intro-tutorial.mp4</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">156 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f2f4;">
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>quick-reference.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">1.9 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+            <tr>
+              <td style="padding:10px 4px 10px 12px;"><span style="cursor:grab; color:#c4c4c4; font-size:15px; user-select:none; line-height:1;">⠿</span></td>
+              <td style="padding:10px 12px;"><div style="display:flex; align-items:center; gap:8px;"><span>📄</span>advanced-techniques.pdf</div></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox"></td>
+              <td style="padding:10px 12px; text-align:center;"><input type="checkbox" checked></td>
+              <td style="padding:10px 16px; text-align:right; color:#6d7175;">3.4 MB</td>
+              <td style="padding:10px 12px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notify customers -->
     <div class="card">
       <div class="card-body" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
         <div>
@@ -3968,8 +4082,38 @@
   </div><!-- /main-content -->
 </div><!-- /app-shell -->
 
+<!-- New Drip Type Modal -->
+<div id="new-drip-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;" onclick="if(event.target===this)hideNewDripModal()">
+  <div style="background:#fff; border-radius:12px; padding:28px; width:680px; max-width:90vw; box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+      <div style="font-size:17px; font-weight:700; color:#202223;">Choose drip type</div>
+      <button onclick="hideNewDripModal()" style="background:none; border:none; cursor:pointer; color:#6d7175; font-size:20px; line-height:1; padding:2px 4px;">✕</button>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <!-- Time-based -->
+      <button onclick="hideNewDripModal(); showPage('drips-new-timebased');" style="text-align:left; background:#fff; border:2px solid #e1e3e5; border-radius:10px; padding:20px; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#5c6ac4'" onmouseout="this.style.borderColor='#e1e3e5'">
+        <div style="font-size:22px; margin-bottom:10px;">📅</div>
+        <div style="font-size:14px; font-weight:600; color:#202223; margin-bottom:8px;">Time-Based</div>
+        <div style="font-size:12px; color:#6d7175; line-height:1.5;">Grant content to subscribers based on when they were active. Subscribers who subscribe after this window won't get access.</div>
+      </button>
+      <!-- Sequential -->
+      <button onclick="hideNewDripModal(); showPage('drips-new');" style="text-align:left; background:#fff; border:2px solid #e1e3e5; border-radius:10px; padding:20px; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#5c6ac4'" onmouseout="this.style.borderColor='#e1e3e5'">
+        <div style="font-size:22px; margin-bottom:10px;">🔢</div>
+        <div style="font-size:14px; font-weight:600; color:#202223; margin-bottom:8px;">Sequential</div>
+        <div style="font-size:12px; color:#6d7175; line-height:1.5;">Drips are given to active subscribers in the same order regardless of when they sign up.</div>
+      </button>
+      <!-- Library -->
+      <button onclick="hideNewDripModal(); showPage('drips-new-library');" style="text-align:left; background:#fff; border:2px solid #e1e3e5; border-radius:10px; padding:20px; cursor:pointer; transition:border-color 0.15s;" onmouseover="this.style.borderColor='#5c6ac4'" onmouseout="this.style.borderColor='#e1e3e5'">
+        <div style="font-size:22px; margin-bottom:10px;">📚</div>
+        <div style="font-size:14px; font-weight:600; color:#202223; margin-bottom:8px;">Library</div>
+        <div style="font-size:12px; color:#6d7175; line-height:1.5;">Drips are available to all active subscribers and access is revoked when they unsubscribe.</div>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const allPages = ['dashboard','plans','settings','new','drips','drips-detail','drips-new','drips-new-timebased','file-detail','library','library-detail','sub-detail','subscribers','customer-detail','portal','widget','notifications','portal-grid','portal-list','cancel-mitigation','content-pass','content-pass-detail'];
+  const allPages = ['dashboard','plans','settings','new','drips','drips-detail','drips-new','drips-new-timebased','drips-new-library','file-detail','library','library-detail','sub-detail','subscribers','customer-detail','portal','widget','notifications','portal-grid','portal-list','cancel-mitigation','content-pass','content-pass-detail'];
 
   function showPage(page) {
     allPages.forEach(p => {
@@ -3997,22 +4141,20 @@
       document.querySelectorAll('.left-nav-sub .left-nav-item')[1]?.classList.add('active');
     } else if (page.startsWith('drips')) {
       document.querySelectorAll('.left-nav-sub .left-nav-item')[2]?.classList.add('active');
-    } else if (page === 'library' || page === 'library-detail') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[3]?.classList.add('active');
     } else if (page === 'content-pass' || page === 'content-pass-detail') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[4]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[3]?.classList.add('active');
     } else if (page === 'portal') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[5]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[4]?.classList.add('active');
     } else if (page === 'widget') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[6]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[5]?.classList.add('active');
     } else if (page === 'notifications') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[7]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[6]?.classList.add('active');
     } else if (page === 'settings') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[8]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[7]?.classList.add('active');
     } else if (page === 'portal-grid') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[9]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[8]?.classList.add('active');
     } else if (page === 'portal-list') {
-      document.querySelectorAll('.left-nav-sub .left-nav-item')[10]?.classList.add('active');
+      document.querySelectorAll('.left-nav-sub .left-nav-item')[9]?.classList.add('active');
     }
   }
 
@@ -4195,6 +4337,14 @@
     publishDate.min = dates.minISO;
     publishDate.max = dates.maxISO;
     publishDate.value = '';
+  }
+
+  function showNewDripModal() {
+    const m = document.getElementById('new-drip-modal');
+    m.style.display = 'flex';
+  }
+  function hideNewDripModal() {
+    document.getElementById('new-drip-modal').style.display = 'none';
   }
 
   function dismissStaged() {
