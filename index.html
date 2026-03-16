@@ -2168,6 +2168,10 @@
         <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add section</button>
       </div>
       <div class="card-body" style="padding:0;">
+        <div style="padding:12px 16px 0; display:flex; gap:8px;">
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add URL</button>
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add license</button>
+        </div>
         <!-- Upload zone -->
         <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;" id="drip-upload-zone">
           <div style="font-size:24px; margin-bottom:6px;">📁</div>
@@ -2393,7 +2397,7 @@
             </div>
           </div>
         </div>
-        <div style="border:2px dashed #c9a227; border-radius:6px; padding:8px 12px; background:#fffdf0;">
+        <div id="tb-anchor-note" style="border:2px dashed #c9a227; border-radius:6px; padding:8px 12px; background:#fffdf0;">
           <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype note</div>
           <div style="font-size:12px; color:#6d7175;">Constrained to on or after anchored billing date/time.</div>
         </div>
@@ -2435,6 +2439,10 @@
         <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add section</button>
       </div>
       <div class="card-body" style="padding:0;">
+        <div style="padding:12px 16px 0; display:flex; gap:8px;">
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add URL</button>
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add license</button>
+        </div>
         <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;">
           <div style="font-size:24px; margin-bottom:6px;">📁</div>
           <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:2px;">Drop files here or click to upload</div>
@@ -2614,6 +2622,10 @@
         <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add section</button>
       </div>
       <div class="card-body" style="padding:0;">
+        <div style="padding:12px 16px 0; display:flex; gap:8px;">
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add URL</button>
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add license</button>
+        </div>
         <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;">
           <div style="font-size:24px; margin-bottom:6px;">📁</div>
           <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:2px;">Drop files here or click to upload</div>
@@ -3106,6 +3118,10 @@
         <button class="btn btn-primary" style="font-size:12px; padding:4px 12px;">+ Add files</button>
       </div>
       <div class="card-body" style="padding:0;">
+        <div style="padding:12px 16px 0; display:flex; gap:8px;">
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add URL</button>
+          <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:5px 12px;">+ Add license</button>
+        </div>
         <div style="margin:16px; border:2px dashed #babec3; border-radius:8px; padding:24px; text-align:center; background:#fafbfb; cursor:pointer;">
           <div style="font-size:24px; margin-bottom:6px;">📁</div>
           <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:2px;">Drop files here or click to upload</div>
@@ -3922,12 +3938,12 @@
       <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:4px;">Prototype control</div>
       <label style="display:inline-flex; align-items:center; gap:8px; font-size:12px; color:#6d7175; cursor:pointer;">
         <input type="checkbox" id="content-pass-enabled" onchange="toggleContentPass(this.checked)">
-        Show populated state
+        Show empty state
       </label>
     </div>
 
     <!-- Empty state -->
-    <div id="content-pass-empty" class="card">
+    <div id="content-pass-empty" class="card" style="display:none;">
       <div class="card-header">Content pass</div>
       <div class="card-body">
         <div style="background:#f6f6f7; border-radius:8px; padding:14px 16px; font-size:13px; color:#6d7175; line-height:1.6; margin-bottom:16px;">
@@ -3939,7 +3955,7 @@
     </div>
 
     <!-- Populated state -->
-    <div id="content-pass-settings" style="display:none;">
+    <div id="content-pass-settings">
 
       <div class="card">
         <div class="card-header">Content pass settings</div>
@@ -3994,17 +4010,10 @@
           </div>
         </div>
         <div class="card-body" style="padding:0;">
-          <div id="cp-all-products" style="display:none; padding:14px 16px; background:#f0faf0; border-radius:0 0 8px 8px;">
-            <div style="display:flex; align-items:center; gap:8px; font-size:13px; color:#155724;">
-              <span style="font-size:16px;">✓</span>
-              <span><strong>All products linked.</strong> The download button will appear on every product in your store for eligible subscribers.</span>
-            </div>
-            <button onclick="setCpProductMode('none')" style="margin-top:10px; background:none; border:none; cursor:pointer; font-size:12px; color:#6d7175; text-decoration:underline; padding:0;">Switch to selecting specific products</button>
-          </div>
-          <div id="cp-select-products" style="display:none;">
-            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; gap:8px;">
+          <div id="cp-all-products" style="display:none;">
+            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; align-items:center; gap:8px;">
               <input type="text" placeholder="Search products..." style="flex:1; max-width:320px;">
-              <button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:4px 12px;">+ Add product</button>
+              <button onclick="setCpProductMode('none')" style="background:none; border:none; cursor:pointer; font-size:12px; color:#6d7175; text-decoration:underline; padding:0; white-space:nowrap;">Switch to specific products</button>
             </div>
             <table style="width:100%; border-collapse:collapse; font-size:13px;">
               <thead>
@@ -4012,7 +4021,7 @@
                   <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Product</th>
                   <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Type</th>
                   <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Price</th>
-                  <th style="padding:8px 16px; width:32px;"></th>
+                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;"></th>
                 </tr>
               </thead>
               <tbody>
@@ -4020,24 +4029,59 @@
                   <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>January Coloring Pack</div></td>
                   <td style="padding:10px 16px; color:#6d7175;">Digital</td>
                   <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                  <td style="padding:10px 16px; text-align:right;"><button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:3px 10px;">Attach files</button></td>
                 </tr>
                 <tr style="border-bottom:1px solid #f1f2f4;">
                   <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>February Coloring Pack</div></td>
                   <td style="padding:10px 16px; color:#6d7175;">Digital</td>
                   <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                  <td style="padding:10px 16px; text-align:right;"><button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:3px 10px;">Attach files</button></td>
                 </tr>
                 <tr>
                   <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🖌</div>Brush Pack Vol. 1</div></td>
                   <td style="padding:10px 16px; color:#6d7175;">Digital</td>
                   <td style="padding:10px 16px; text-align:right; color:#6d7175;">$12.00</td>
-                  <td style="padding:10px 16px; text-align:center;"><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                  <td style="padding:10px 16px; text-align:right;"><button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:3px 10px;">Attach files</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div id="cp-no-products" style="padding:32px; text-align:center; color:#6d7175;">
+          <div id="cp-select-products">
+            <div style="padding:12px 16px; border-bottom:1px solid #e1e3e5; display:flex; gap:8px;">
+              <input type="text" placeholder="Search products..." style="flex:1; max-width:320px;">
+            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:13px;">
+              <thead>
+                <tr style="border-bottom:1px solid #e1e3e5; background:#f6f6f7;">
+                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Product</th>
+                  <th style="padding:8px 16px; text-align:left; font-weight:600; color:#6d7175; font-size:11px;">Type</th>
+                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;">Price</th>
+                  <th style="padding:8px 16px; text-align:right; font-weight:600; color:#6d7175; font-size:11px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f1f2f4;">
+                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>January Coloring Pack</div></td>
+                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
+                  <td style="padding:10px 16px; text-align:right; display:flex; gap:8px; justify-content:flex-end; align-items:center;"><button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:3px 10px;">Attach files</button><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+                <tr style="border-bottom:1px solid #f1f2f4;">
+                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🎨</div>February Coloring Pack</div></td>
+                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$6.00</td>
+                  <td style="padding:10px 16px; text-align:right; display:flex; gap:8px; justify-content:flex-end; align-items:center;"><button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:3px 10px;">Attach files</button><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 16px;"><div style="display:flex; align-items:center; gap:10px;"><div style="width:32px; height:32px; background:#f1f2f4; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:16px;">🖌</div>Brush Pack Vol. 1</div></td>
+                  <td style="padding:10px 16px; color:#6d7175;">Digital</td>
+                  <td style="padding:10px 16px; text-align:right; color:#6d7175;">$12.00</td>
+                  <td style="padding:10px 16px; text-align:right; display:flex; gap:8px; justify-content:flex-end; align-items:center;"><button class="btn btn-plain" style="border:1px solid #babec3; font-size:12px; padding:3px 10px;">Attach files</button><button style="background:none; border:none; cursor:pointer; color:#6d7175;">🗑</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="cp-no-products" style="display:none; padding:32px; text-align:center; color:#6d7175;">
             <div style="font-size:28px; margin-bottom:8px;">📦</div>
             <div style="font-size:13px; font-weight:500; color:#202223; margin-bottom:4px;">No products linked yet</div>
             <div style="font-size:12px;">Choose "Link all products", "Select collection", or "Select products" above to get started.</div>
@@ -4282,11 +4326,11 @@
     if (emptyState) emptyState.style.display = enabled ? 'none' : 'block';
   }
 
-  function toggleContentPass(enabled) {
+  function toggleContentPass(showEmpty) {
     const el = document.getElementById('content-pass-settings');
     const emptyState = document.getElementById('content-pass-empty');
-    if (el) el.style.display = enabled ? 'block' : 'none';
-    if (emptyState) emptyState.style.display = enabled ? 'none' : 'block';
+    if (el) el.style.display = showEmpty ? 'none' : 'block';
+    if (emptyState) emptyState.style.display = showEmpty ? 'block' : 'none';
   }
 
   function setCpProductMode(mode) {
@@ -4315,6 +4359,8 @@
   function toggleTBEligibility(mode) {
     document.getElementById('tb-eligibility-anchored').style.display = mode === 'anchored' ? 'block' : 'none';
     document.getElementById('tb-eligibility-window').style.display = mode === 'window' ? 'block' : 'none';
+    const note = document.getElementById('tb-anchor-note');
+    if (note) note.style.display = mode === 'anchored' ? 'block' : 'none';
   }
 
   const anchorWindows = {
