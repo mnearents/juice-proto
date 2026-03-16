@@ -2356,6 +2356,61 @@
       </div>
     </div>
 
+    <!-- Access settings -->
+    <div class="card">
+      <div class="card-header">Access settings</div>
+      <div class="card-body">
+        <div class="check-row">
+          <input type="checkbox" id="seq-instant" checked>
+          <div>
+            <label for="seq-instant" class="check-label">Deliver first drip immediately on purchase</label>
+            <div class="check-desc">When enabled, subscribers receive their first drip right away instead of waiting for their first renewal.</div>
+            <div style="border:2px dashed #c9a227; border-radius:6px; padding:6px 10px; background:#fffdf0; margin-top:8px;">
+              <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:2px;">Prototype note</div>
+              <div style="font-size:12px; color:#6d7175;">This setting only applies to anchored billing plans. On rolling billing, the first drip is always delivered immediately.</div>
+            </div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="check-row">
+          <input type="checkbox" id="seq-retain">
+          <div>
+            <label for="seq-retain" class="check-label">Retain access after cancellation or pause</label>
+            <div class="check-desc">Customers keep access to drips they've already received, but won't receive new ones.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="seq-revoke">
+          <div>
+            <label for="seq-revoke" class="check-label">Revoke access after a refund</label>
+            <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="section-title" style="margin-bottom:4px;">Download limits by tier</div>
+        <div class="section-desc" style="margin-bottom:14px;">How many distinct files each tier can download within a timeframe. Leave blank for unlimited.</div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:6px; padding:0 2px;">
+          <div></div>
+          <div style="font-size:11px; font-weight:600; color:#6d7175;">Max unique files</div>
+          <div style="font-size:11px; font-weight:600; color:#6d7175;">Timeframe</div>
+        </div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:10px;">
+          <div style="font-size:13px; font-weight:500;">Basic</div>
+          <input type="text" placeholder="Unlimited" style="max-width:160px;">
+          <select style="max-width:160px;"><option>Per day</option><option>Per week</option><option>Per month</option><option>Per year</option></select>
+        </div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:12px;">
+          <div style="font-size:13px; font-weight:500;">Premium</div>
+          <input type="text" placeholder="Unlimited" style="max-width:160px;">
+          <select style="max-width:160px;"><option>Per day</option><option>Per week</option><option>Per month</option><option>Per year</option></select>
+        </div>
+        <div class="check-row" style="margin-bottom:0;">
+          <input type="checkbox" id="seq-repeat" checked>
+          <div><label for="seq-repeat" class="check-label">Allow same file to be downloaded repeatedly without affecting limit</label></div>
+        </div>
+      </div>
+    </div>
+
     <!-- Notify customers -->
     <div class="card">
       <div class="card-body" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
@@ -2614,6 +2669,61 @@
       </div>
     </div>
 
+    <!-- Access settings -->
+    <div class="card">
+      <div class="card-header">Access settings</div>
+      <div class="card-body">
+        <div class="check-row">
+          <input type="checkbox" id="tb-instant" checked>
+          <div>
+            <label for="tb-instant" class="check-label">Deliver first drip immediately on purchase</label>
+            <div class="check-desc">When enabled, subscribers receive their first drip right away instead of waiting for their first renewal.</div>
+            <div style="border:2px dashed #c9a227; border-radius:6px; padding:6px 10px; background:#fffdf0; margin-top:8px;">
+              <div style="font-size:10px; font-weight:700; color:#c9a227; text-transform:uppercase; letter-spacing:0.6px; margin-bottom:2px;">Prototype note</div>
+              <div style="font-size:12px; color:#6d7175;">This setting only applies to anchored billing plans. On rolling billing, the first drip is always delivered immediately.</div>
+            </div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="check-row">
+          <input type="checkbox" id="tb-retain" checked>
+          <div>
+            <label for="tb-retain" class="check-label">Retain access after cancellation or pause</label>
+            <div class="check-desc">Customers keep access to drips they've already received, but won't receive new ones.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="tb-revoke">
+          <div>
+            <label for="tb-revoke" class="check-label">Revoke access after a refund</label>
+            <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="section-title" style="margin-bottom:4px;">Download limits by tier</div>
+        <div class="section-desc" style="margin-bottom:14px;">How many distinct files each tier can download within a timeframe. Leave blank for unlimited.</div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:6px; padding:0 2px;">
+          <div></div>
+          <div style="font-size:11px; font-weight:600; color:#6d7175;">Max unique files</div>
+          <div style="font-size:11px; font-weight:600; color:#6d7175;">Timeframe</div>
+        </div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:10px;">
+          <div style="font-size:13px; font-weight:500;">Basic</div>
+          <input type="text" placeholder="Unlimited" style="max-width:160px;">
+          <select style="max-width:160px;"><option>Per day</option><option>Per week</option><option>Per month</option><option>Per year</option></select>
+        </div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:12px;">
+          <div style="font-size:13px; font-weight:500;">Premium</div>
+          <input type="text" placeholder="Unlimited" style="max-width:160px;">
+          <select style="max-width:160px;"><option>Per day</option><option>Per week</option><option>Per month</option><option>Per year</option></select>
+        </div>
+        <div class="check-row" style="margin-bottom:0;">
+          <input type="checkbox" id="tb-repeat" checked>
+          <div><label for="tb-repeat" class="check-label">Allow same file to be downloaded repeatedly without affecting limit</label></div>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-body" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
         <div>
@@ -2800,6 +2910,49 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Access settings -->
+    <div class="card">
+      <div class="card-header">Access settings</div>
+      <div class="card-body">
+        <div class="check-row">
+          <input type="checkbox" id="lib-retain">
+          <div>
+            <label for="lib-retain" class="check-label">Retain access after cancellation or pause</label>
+            <div class="check-desc">Customers keep access to drips they've already received, but won't receive new ones.</div>
+          </div>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="lib-revoke">
+          <div>
+            <label for="lib-revoke" class="check-label">Revoke access after a refund</label>
+            <div class="check-desc">After refunding an order, customers won't be able to access drips from that order.</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="section-title" style="margin-bottom:4px;">Download limits by tier</div>
+        <div class="section-desc" style="margin-bottom:14px;">How many distinct files each tier can download within a timeframe. Leave blank for unlimited.</div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:6px; padding:0 2px;">
+          <div></div>
+          <div style="font-size:11px; font-weight:600; color:#6d7175;">Max unique files</div>
+          <div style="font-size:11px; font-weight:600; color:#6d7175;">Timeframe</div>
+        </div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:10px;">
+          <div style="font-size:13px; font-weight:500;">Basic</div>
+          <input type="text" placeholder="Unlimited" style="max-width:160px;">
+          <select style="max-width:160px;"><option>Per day</option><option>Per week</option><option>Per month</option><option>Per year</option></select>
+        </div>
+        <div style="display:grid; grid-template-columns:140px 200px 160px; gap:10px; align-items:center; margin-bottom:12px;">
+          <div style="font-size:13px; font-weight:500;">Premium</div>
+          <input type="text" placeholder="Unlimited" style="max-width:160px;">
+          <select style="max-width:160px;"><option>Per day</option><option>Per week</option><option>Per month</option><option>Per year</option></select>
+        </div>
+        <div class="check-row" style="margin-bottom:0;">
+          <input type="checkbox" id="lib-repeat" checked>
+          <div><label for="lib-repeat" class="check-label">Allow same file to be downloaded repeatedly without affecting limit</label></div>
+        </div>
       </div>
     </div>
 
