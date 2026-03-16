@@ -195,9 +195,34 @@
 
   <!-- Dashboard page -->
   <div id="page-dashboard" style="display:none; padding:24px 28px;">
-    <h1 style="font-size:20px; font-weight:700; margin-bottom:20px;">Analytics</h1>
 
-    <!-- Top stat row: 4 small cards -->
+    <!-- Header row: title + filters -->
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+      <h1 style="font-size:20px; font-weight:700; margin:0;">Analytics</h1>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div>
+          <label style="font-size:12px; color:#6d7175; margin-right:6px;">Subscription</label>
+          <select style="font-size:13px; padding:6px 10px; border:1px solid #babec3; border-radius:6px; background:#fff; color:#202223; cursor:pointer;">
+            <option selected>All</option>
+            <option>Really Awesome Doodles</option>
+            <option>Creator's Club</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px; color:#6d7175; margin-right:6px;">Timeframe</label>
+          <select style="font-size:13px; padding:6px 10px; border:1px solid #babec3; border-radius:6px; background:#fff; color:#202223; cursor:pointer;">
+            <option>Last 30 days</option>
+            <option selected>This month</option>
+            <option>Last 3 months</option>
+            <option>Last 6 months</option>
+            <option>This year</option>
+            <option>All time</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 1: Subscriber status cards -->
     <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:16px;">
 
       <!-- Active subscribers -->
@@ -227,12 +252,53 @@
         </div>
       </div>
 
+      <!-- In dunning -->
+      <div class="card" style="margin:0;">
+        <div class="card-body" style="padding:16px 20px;">
+          <div style="font-size:11px; font-weight:600; color:#6d7175; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">In dunning</div>
+          <div style="font-size:32px; font-weight:700; color:#202223; line-height:1; margin-bottom:6px;">8</div>
+          <div style="font-size:12px; color:#856404; background:#fff3cd; display:inline-block; padding:2px 8px; border-radius:10px;">↑ 2 this month</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row 2: Revenue / performance cards -->
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:16px;">
+
+      <!-- LTV -->
+      <div class="card" style="margin:0;">
+        <div class="card-body" style="padding:16px 20px;">
+          <div style="font-size:11px; font-weight:600; color:#6d7175; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">LTV</div>
+          <div style="font-size:32px; font-weight:700; color:#202223; line-height:1; margin-bottom:6px;">$148</div>
+          <div style="font-size:12px; color:#155724; background:#d4edda; display:inline-block; padding:2px 8px; border-radius:10px;">↑ $6 vs last month</div>
+        </div>
+      </div>
+
+      <!-- Churn rate -->
+      <div class="card" style="margin:0;">
+        <div class="card-body" style="padding:16px 20px;">
+          <div style="font-size:11px; font-weight:600; color:#6d7175; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Churn rate</div>
+          <div style="font-size:32px; font-weight:700; color:#202223; line-height:1; margin-bottom:6px;">3.6%</div>
+          <div style="font-size:12px; color:#155724; background:#d4edda; display:inline-block; padding:2px 8px; border-radius:10px;">↓ 0.4% vs last month</div>
+        </div>
+      </div>
+
       <!-- Failed payment recovery -->
       <div class="card" style="margin:0;">
         <div class="card-body" style="padding:16px 20px;">
           <div style="font-size:11px; font-weight:600; color:#6d7175; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Failed payment recovery</div>
           <div style="font-size:32px; font-weight:700; color:#202223; line-height:1; margin-bottom:6px;">68%</div>
           <div style="font-size:12px; color:#6d7175;">17 of 25 recovered</div>
+        </div>
+      </div>
+
+      <!-- Expected revenue -->
+      <div class="card" style="margin:0;">
+        <div class="card-body" style="padding:16px 20px;">
+          <div style="font-size:11px; font-weight:600; color:#6d7175; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Expected revenue</div>
+          <div style="font-size:32px; font-weight:700; color:#202223; line-height:1; margin-bottom:6px;">$4,812</div>
+          <div style="font-size:12px; color:#6d7175;">Next 30 days</div>
         </div>
       </div>
 
